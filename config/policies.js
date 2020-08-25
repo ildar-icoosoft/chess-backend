@@ -22,4 +22,14 @@ module.exports.policies = {
   'legal/view-privacy': true,
   'deliver-contact-form-message': true,
 
+  GameController: {
+    '*': true,
+  },
+  ChallengeController: {
+    '*': true,
+  },
+  BoardController: {
+    '*': true,
+  }
+
 };
