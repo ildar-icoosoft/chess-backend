@@ -1,26 +1,22 @@
 module.exports = {
 
 
-  friendlyName: 'Get current games',
+  friendlyName: 'Get playing games',
 
 
   description: '',
 
 
-  inputs: {
-
-  },
+  inputs: {},
 
 
-  exits: {
-
-  },
+  exits: {},
 
 
   fn: async function (inputs) {
 
     const games = await Game.find({
-      status: "started"
+      status: 'started'
     });
 
     return games;
