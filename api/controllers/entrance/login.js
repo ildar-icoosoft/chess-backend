@@ -108,6 +108,7 @@ and exposed as \`req.me\`.)`
     // (This will be persisted when the response is sent.)
     this.req.session.userId = userRecord.id;
 
+    return userRecord;
   }
 
 };
