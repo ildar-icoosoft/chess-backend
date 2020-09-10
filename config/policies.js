@@ -25,9 +25,6 @@ module.exports.policies = {
   GameController: {
     '*': true,
   },
-  ChallengeController: {
-    '*': true,
-  },
   BoardController: {
     '*': true,
   }

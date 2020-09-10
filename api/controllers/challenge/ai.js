@@ -4,23 +4,80 @@ module.exports = {
 
   description: 'Ai challenge.',
 
-  inputs: {},
+  inputs: {
+
+    level: {
+      description: 'AI strength (1 - 8)',
+      type: 'number',
+      required: true,
+      isInteger: true,
+      min: 1,
+      max: 8
+    },
+
+    color: {
+      description: 'Which color you get to play',
+      type: 'string',
+      isIn: ['random', 'white', 'black'],
+      required: true
+    },
+
+    clockLimit: {
+      description: 'Clock initial time in seconds. If empty, a correspondence game is created (0 - 10800)',
+      type: 'number',
+      required: true,
+      isInteger: true,
+      min: 0,
+      max: 10800
+    },
+
+    clockIncrement: {
+      description: 'Clock increment in seconds. If empty, a correspondence game is created (0 - 60)',
+      type: 'number',
+      required: true,
+      isInteger: true,
+      min: 0,
+      max: 60
+    }
+  },
 
   exits: {},
 
 
   fn: async function (inputs) {
+    var user = await User.findOne({ id: this.req.session.userId });
+
+    if (!user) { throw 'unauthorized'; }
 
     // if (!this.req.isSocket) {
     //   throw {badRequest: 'Only a client socket can subscribe to Louies.  But you look like an HTTP request to me.'};
     // }
 
+    let color = inputs.color;
+
+    let white = null;
+    let black = null;
+
+    if (color === "random") {
+      const colors = ["white", "black"];
+
+      color = colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    if (color === "white") {
+      white = user.id;
+    } else if (color === "black") {
+      black = user.id;
+    }
+
     const game = Game.create({
       initialFen: 'startpos',
-      wtime: 300000,
-      btime: 300000,
-      white: null,
-      black: null,
+      wtime: inputs.clockLimit * 1000,
+      btime: inputs.clockLimit * 1000,
+      white,
+      black,
+      clockIncrement: inputs.clockIncrement,
+      aiLevel: inputs.level,
       moves: '',
       status: 'started'
     });

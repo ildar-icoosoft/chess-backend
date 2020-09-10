@@ -27,6 +27,15 @@ module.exports = {
       description: 'Black time in msec',
       example: 300000
     },
+    clockIncrement: {
+      type: 'number',
+      description: 'Clock increment in sec. If empty, a correspondence game is created (0 - 60)',
+      example: 10
+    },
+    aiLevel: {
+      type: 'number',
+      example: '0 if them game is not against AI. 1 - 8 for AI strength'
+    },
     moves: {
       type: 'string',
       example: 'e2e4 e7e5 g1f3'
