@@ -17,7 +17,9 @@ module.exports = {
 
     const games = await Game.find({
       status: 'started'
-    });
+    })
+      .populate("white")
+      .populate("black");
 
     return games;
 
