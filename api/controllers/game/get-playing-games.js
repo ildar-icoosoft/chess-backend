@@ -18,6 +18,7 @@ module.exports = {
     const games = await Game.find({
       status: 'started'
     })
+      .sort('createdAt DESC')
       .populate("white")
       .populate("black");
 
