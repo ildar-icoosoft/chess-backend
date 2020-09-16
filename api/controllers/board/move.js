@@ -1,3 +1,9 @@
+const {
+  makeChessInstance,
+  checkIfUserCanPlay,
+  shouldAiMove
+} = sails.helpers;
+
 module.exports = {
 
 
@@ -30,45 +36,66 @@ module.exports = {
 
 
   exits: {
-
+    gameNotFound: {
+      statusCode: 404,
+      description: 'The provided game not found',
+    },
+    userIsNotPlayer: {
+      statusCode: 403,
+      description: 'User is not a player of this game',
+    },
+    gameIsNotStarted: {
+      statusCode: 403,
+      description: "Game status is not 'started'"
+    },
+    notUsersTurnToMove: {
+      statusCode: 403,
+      description: 'Not user\' turn to move',
+    },
+    gameIsOver: {
+      statusCode: 403,
+      description: 'Game is over',
+    },
+    invalidMove: {
+      statusCode: 403,
+      description: 'Invalid move',
+    }
   },
 
 
   fn: async function (inputs) {
 
-    let game = await Game.findOne({
+    const game = await Game.findOne({
       id: inputs.gameId
     });
 
-    if (game) {
-      const previous = game;
-
-      let moves = game.moves;
-      if (moves) {
-        moves += ' ';
-      }
-      moves += inputs.move;
-
-      game = await Game.updateOne(game).set({
-        moves
-      });
-
-      sails.sockets.blast('game', {
-        verb: 'updated',
-        data: {
-          id: game.id,
-          moves
-        },
-        previous,
-        id: game.id
-      }, this.req);
-
-      return game;
+    if (!game) {
+      throw "gameNotFound";
     }
 
-    // All done.
-    return;
+    const chess = makeChessInstance(game);
 
+    checkIfUserCanPlay(chess, game, this.req);
+
+    const moves = `${game.moves} ${inputs.move}`.trim();
+    const updatedGame = await Game.updateOne(game).set({
+      moves
+    });
+
+    sails.helpers.emitGameUpdate.with({
+      data: {
+        id: game.id,
+        moves
+      },
+      previous: game,
+      req: this.req
+    });
+
+    if (shouldAiMove(updatedGame)) {
+      // AI move
+    }
+
+    return game;
   }
 
 
