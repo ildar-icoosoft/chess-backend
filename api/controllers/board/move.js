@@ -77,22 +77,16 @@ module.exports = {
 
     checkIfUserCanPlay(chess, game, this.req);
 
-    const moves = `${game.moves} ${inputs.move}`.trim();
-    const updatedGame = await Game.updateOne(game).set({
-      moves
-    });
+    if (!chess.move(inputs.move)) {
+      throw "invalidMove";
+    }
 
-    sails.helpers.emitGameUpdate.with({
-      data: {
-        id: game.id,
-        moves
-      },
-      previous: game,
-      req: this.req
-    });
+    const updatedGame = makeMove(game, inputs.move, this.req);
 
     if (shouldAiMove(updatedGame)) {
-      // AI move
+      makeAiMove(chess).then(move => {
+        makeMove(game, move);
+      });
     }
 
     return game;
