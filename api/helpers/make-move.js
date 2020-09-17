@@ -37,8 +37,6 @@ module.exports = {
 
   fn: async function (inputs) {
 
-    console.log('makeMove');
-
     const {
       getGameStatusAfterMove
     } = sails.helpers;

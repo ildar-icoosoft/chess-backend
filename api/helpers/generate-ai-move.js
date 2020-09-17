@@ -10,6 +10,7 @@ module.exports = {
 
   description: '',
 
+  sync: true,
 
   inputs: {
     chess: {
@@ -25,24 +26,26 @@ module.exports = {
       description: 'All done.',
     },
 
+    internalError: {
+      statusCode: 500,
+      description: 'Internal server error',
+    }
+
   },
 
 
-  fn: async function (inputs, exits) {
-    setTimeout(() => {
-      const {chess} = inputs;
+  fn: function (inputs) {
+    const {chess} = inputs;
 
-      const moveObj = aiMove(chess.fen(), 2);
+    const moveObj = aiMove(chess.fen(), 3);
 
-      for (const propName in moveObj) {
-        const move = (propName + moveObj[propName]).toLowerCase();
+    for (const propName in moveObj) {
+      const move = (propName + moveObj[propName]).toLowerCase();
 
-        exits.success(move);
-        return;
-      }
+      return move;
+    }
 
-      throw "internalError";
-    }, 0);
+    throw "internalError";
   }
 
 

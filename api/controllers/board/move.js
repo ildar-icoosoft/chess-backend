@@ -42,22 +42,6 @@ module.exports = {
       statusCode: 404,
       description: 'The provided game not found',
     },
-    userIsNotPlayer: {
-      statusCode: 403,
-      description: 'User is not a player of this game',
-    },
-    gameIsNotStarted: {
-      statusCode: 403,
-      description: "Game status is not 'started'"
-    },
-    notUsersTurnToMove: {
-      statusCode: 403,
-      description: 'Not user\' turn to move',
-    },
-    gameIsOver: {
-      statusCode: 403,
-      description: 'Game is over',
-    },
     invalidMove: {
       statusCode: 403,
       description: 'Invalid move',
@@ -101,14 +85,14 @@ module.exports = {
       chess: chess,
       game: updatedGame
     })) {
-      generateAiMove(chess).then(async aiMove => {
-        console.log('start make move: ' + aiMove);
+      setTimeout(async () => {
+        const aiMove = generateAiMove(chess);
         await makeMove.with({
           game: updatedGame,
           chess,
           move: aiMove,
         });
-      });
+      }, 0);
     }
 
     return updatedGame;
