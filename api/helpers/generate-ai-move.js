@@ -8,7 +8,10 @@ module.exports = {
 
 
   inputs: {
-
+    chess: {
+      type: "ref",
+      required: true
+    }
   },
 
 

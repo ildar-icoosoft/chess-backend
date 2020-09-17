@@ -6,6 +6,7 @@ module.exports = {
 
   description: '',
 
+  sync: true,
 
   inputs: {
     game: {
