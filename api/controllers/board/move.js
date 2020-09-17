@@ -101,9 +101,10 @@ module.exports = {
       chess: chess,
       game: updatedGame
     })) {
-      generateAiMove(chess).then(aiMove => {
-        makeMove.with({
-          game,
+      generateAiMove(chess).then(async aiMove => {
+        console.log('start make move: ' + aiMove);
+        await makeMove.with({
+          game: updatedGame,
           chess,
           move: aiMove,
         });

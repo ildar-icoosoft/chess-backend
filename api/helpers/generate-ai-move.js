@@ -28,23 +28,21 @@ module.exports = {
   },
 
 
-  fn: function (inputs) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const {chess} = inputs;
+  fn: async function (inputs, exits) {
+    setTimeout(() => {
+      const {chess} = inputs;
 
-        const moveObj = aiMove(chess.fen(), 2);
+      const moveObj = aiMove(chess.fen(), 2);
 
-        for (const propName in moveObj) {
-          resolve(propName + moveObj[propName]);
-          break;
-        }
+      for (const propName in moveObj) {
+        const move = (propName + moveObj[propName]).toLowerCase();
 
-        reject("internalError");
-      }, 0);
+        exits.success(move);
+        return;
+      }
 
-    });
-
+      throw "internalError";
+    }, 0);
   }
 
 

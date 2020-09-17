@@ -22,7 +22,6 @@ module.exports = {
     },
     req: {
       type: "ref",
-      required: true
     }
   },
 
@@ -37,6 +36,9 @@ module.exports = {
 
 
   fn: async function (inputs) {
+
+    console.log('makeMove');
+
     const {
       getGameStatusAfterMove
     } = sails.helpers;
