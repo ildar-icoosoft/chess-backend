@@ -1,7 +1,3 @@
-const {
-  getGameStatusAfterMove
-} = sails.helpers;
-
 module.exports = {
 
 
@@ -42,13 +38,19 @@ module.exports = {
 
   fn: async function (inputs) {
     const {
+      getGameStatusAfterMove
+    } = sails.helpers;
+
+    const {
       req,
       game,
       chess,
       move
     } = inputs;
 
-    const newStatus = getGameStatusAfterMove(chess);
+    const newStatus = getGameStatusAfterMove.with({
+      chess
+    });
 
     const moves = `${game.moves} ${move}`.trim();
     const updatedGame = await Game.updateOne(game).set({

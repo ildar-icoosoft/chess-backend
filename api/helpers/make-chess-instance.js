@@ -1,4 +1,4 @@
-const Chess = require('chess');
+const Chess = require('chess.js').Chess;
 
 const startPositionFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
@@ -30,7 +30,7 @@ module.exports = {
   },
 
 
-  fn: async function (inputs) {
+  fn: function (inputs) {
     const game = inputs.game;
 
     let { initialFen } = game;

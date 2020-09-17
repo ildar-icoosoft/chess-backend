@@ -6,6 +6,7 @@ module.exports = {
 
   description: '',
 
+
   sync: true,
 
   inputs: {
@@ -19,7 +20,7 @@ module.exports = {
   exits: {
 
     success: {
-      outputFriendlyName: 'Game status',
+      outputFriendlyName: 'Game status after move',
     },
 
   },

@@ -2,7 +2,8 @@ const {
   makeChessInstance,
   checkIfUserCanMove,
   makeMove,
-  shouldAiMove
+  shouldAiMove,
+  generateAiMove
 } = sails.helpers;
 
 module.exports = {
@@ -75,17 +76,21 @@ module.exports = {
       throw "gameNotFound";
     }
 
+    const chess = makeChessInstance(game);
+
     checkIfUserCanMove.with({
+      chess,
       game,
       req: this.req,
     });
 
-    const chess = makeChessInstance(game);
-    if (!chess.move(move)) {
+    if (!chess.move(move, {
+      sloppy: true,
+    })) {
       throw "invalidMove";
     }
 
-    const updatedGame = makeMove.with({
+    const updatedGame = await makeMove.with({
       game,
       chess,
       move,
@@ -105,7 +110,7 @@ module.exports = {
       });
     }
 
-    return game;
+    return updatedGame;
   }
 
 

@@ -9,6 +9,10 @@ module.exports = {
   sync: true,
 
   inputs: {
+    chess: {
+      type: "ref",
+      required: true
+    },
     game: {
       type: "ref",
       required: true
@@ -43,6 +47,7 @@ module.exports = {
 
   fn: function (inputs) {
     const {
+      chess,
       game,
       req
     } = inputs;
@@ -55,7 +60,7 @@ module.exports = {
       throw "userIsNotPlayerOfThisGame";
     }
 
-    if ((game.turn() === "w" && req.session.userId !== game.white) || (game.turn() === "b" && req.session.userId !== game.black)) {
+    if ((chess.turn() === "w" && req.session.userId !== game.white) || (chess.turn() === "b" && req.session.userId !== game.black)) {
       throw "notUsersTurnToMove";
     }
   }
