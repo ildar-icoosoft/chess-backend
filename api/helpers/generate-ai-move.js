@@ -1,19 +1,14 @@
 module.exports = {
 
 
-  friendlyName: 'Is player turn to move',
+  friendlyName: 'Generate ai move',
 
 
   description: '',
 
 
-  sync: true,
-
   inputs: {
-    game: {
-      type: "ref",
-      required: true
-    }
+
   },
 
 

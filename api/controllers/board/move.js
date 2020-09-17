@@ -1,6 +1,7 @@
 const {
   makeChessInstance,
-  checkIfUserCanPlay,
+  checkIfUserCanMove,
+  makeMove,
   shouldAiMove
 } = sails.helpers;
 
@@ -64,28 +65,43 @@ module.exports = {
 
 
   fn: async function (inputs) {
+    const {move, gameId} = inputs;
 
     const game = await Game.findOne({
-      id: inputs.gameId
+      id: gameId
     });
 
     if (!game) {
       throw "gameNotFound";
     }
 
+    checkIfUserCanMove.with({
+      game,
+      req: this.req,
+    });
+
     const chess = makeChessInstance(game);
-
-    checkIfUserCanPlay(chess, game, this.req);
-
-    if (!chess.move(inputs.move)) {
+    if (!chess.move(move)) {
       throw "invalidMove";
     }
 
-    const updatedGame = makeMove(game, inputs.move, this.req);
+    const updatedGame = makeMove.with({
+      game,
+      chess,
+      move,
+      req: this.req
+    });
 
-    if (shouldAiMove(updatedGame)) {
-      makeAiMove(chess).then(move => {
-        makeMove(game, move);
+    if (shouldAiMove.with({
+      chess: chess,
+      game: updatedGame
+    })) {
+      generateAiMove(chess).then(aiMove => {
+        makeMove.with({
+          game,
+          chess,
+          move: aiMove,
+        });
       });
     }
 

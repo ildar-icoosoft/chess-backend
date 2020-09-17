@@ -6,9 +6,17 @@ module.exports = {
 
   description: '',
 
+  sync: true,
 
   inputs: {
-
+    game: {
+      type: "ref",
+      required: true
+    },
+    req: {
+      type: "ref",
+      required: true
+    }
   },
 
 
@@ -17,24 +25,39 @@ module.exports = {
     success: {
       description: 'All done.',
     },
+    gameStatusIsNotStarted: {
+      statusCode: 403,
+      description: 'Game is over',
+    },
+    userIsNotPlayerOfThisGame: {
+      statusCode: 403,
+      description: 'User is not a player of this game',
+    },
+    notUsersTurnToMove: {
+      statusCode: 403,
+      description: 'It is not user\'s turn to move',
+    }
 
   },
 
 
-  fn: async function (inputs) {
-    if (!userIsPlayer(game, req)) {
-      throw "userIsNotPlayer";
+  fn: function (inputs) {
+    const {
+      game,
+      req
+    } = inputs;
+
+    if (game.status !== "started") {
+      throw "gameStatusIsNotStarted";
     }
-    if (!isGameStarted(game)) {
-      throw "gameIsNotStarted";
+
+    if (req.session.userId !== game.white && req.session.userId !== game.black) {
+      throw "userIsNotPlayerOfThisGame";
     }
-    if (!isPlayerTurnToMove(chess, game)) {
+
+    if ((game.turn() === "w" && req.session.userId !== game.white) || (game.turn() === "b" && req.session.userId !== game.black)) {
       throw "notUsersTurnToMove";
     }
-
-
   }
-
-
 };
 

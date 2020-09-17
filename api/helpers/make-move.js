@@ -1,3 +1,7 @@
+const {
+  getGameStatusAfterMove
+} = sails.helpers;
+
 module.exports = {
 
 
@@ -8,7 +12,22 @@ module.exports = {
 
 
   inputs: {
-
+    game: {
+      type: "ref",
+      required: true
+    },
+    chess: {
+      type: "ref",
+      required: true
+    },
+    move: {
+      type: "string",
+      required: true
+    },
+    req: {
+      type: "ref",
+      required: true
+    }
   },
 
 
@@ -22,23 +41,33 @@ module.exports = {
 
 
   fn: async function (inputs) {
-    const moves = `${inputs.game.moves} ${inputs.move}`.trim();
-    const updatedGame = await Game.updateOne(inputs.game).set({
+    const {
+      req,
+      game,
+      chess,
+      move
+    } = inputs;
+
+    const newStatus = getGameStatusAfterMove(chess);
+
+    const moves = `${game.moves} ${move}`.trim();
+    const updatedGame = await Game.updateOne(game).set({
+      status: newStatus,
       moves
     });
 
-    sails.helpers.emitGameUpdate.with({
+    sails.sockets.blast('game', {
+      verb: 'updated',
       data: {
         id: game.id,
+        status: newStatus,
         moves
       },
       previous: game,
-      req: inputs.req
-    });
+      id: game.id
+    }, req);
 
     return updatedGame;
   }
-
-
 };
 
