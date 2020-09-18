@@ -87,6 +87,11 @@ module.exports = {
     })) {
       setTimeout(async () => {
         const aiMove = generateAiMove(chess);
+        if (!chess.move(aiMove, {
+          sloppy: true,
+        })) {
+          throw "invalidMove";
+        }
         await makeMove.with({
           game: updatedGame,
           chess,
