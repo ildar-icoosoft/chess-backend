@@ -25,8 +25,5 @@ module.exports.policies = {
   GameController: {
     '*': true,
   },
-  BoardController: {
-    '*': true,
-  }
 
 };

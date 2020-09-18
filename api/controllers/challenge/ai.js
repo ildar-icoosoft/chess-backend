@@ -1,3 +1,10 @@
+const {
+  makeChessInstance,
+  makeMove,
+  shouldAiMove,
+  generateAiMove
+} = sails.helpers;
+
 module.exports = {
 
   friendlyName: 'Ai',
@@ -45,9 +52,11 @@ module.exports = {
 
 
   fn: async function (inputs) {
-    var user = await User.findOne({ id: this.req.session.userId });
+    var user = await User.findOne({id: this.req.session.userId});
 
-    if (!user) { throw 'unauthorized'; }
+    if (!user) {
+      throw 'unauthorized';
+    }
 
     // if (!this.req.isSocket) {
     //   throw {badRequest: 'Only a client socket can subscribe to Louies.  But you look like an HTTP request to me.'};
@@ -58,19 +67,19 @@ module.exports = {
     let white = null;
     let black = null;
 
-    if (color === "random") {
-      const colors = ["white", "black"];
+    if (color === 'random') {
+      const colors = ['white', 'black'];
 
       color = colors[Math.floor(Math.random() * colors.length)];
     }
 
-    if (color === "white") {
+    if (color === 'white') {
       white = user.id;
-    } else if (color === "black") {
+    } else if (color === 'black') {
       black = user.id;
     }
 
-    const game = Game.create({
+    const game = await Game.create({
       initialFen: 'startpos',
       wtime: inputs.clockLimit * 1000,
       btime: inputs.clockLimit * 1000,
@@ -80,15 +89,34 @@ module.exports = {
       aiLevel: inputs.level,
       moves: '',
       status: 'started'
-    });
-
-    const gameJSON = await game.fetch();
+    }).fetch();
 
     sails.sockets.blast('game', {
       verb: 'created',
-      data: gameJSON,
-      id: gameJSON.id
+      data: game,
+      id: game.id
     }, this.req);
+
+    const chess = makeChessInstance(game);
+
+    if (shouldAiMove.with({
+      chess: chess,
+      game: game
+    })) {
+      setTimeout(async () => {
+        const aiMove = generateAiMove(chess);
+        if (!chess.move(aiMove, {
+          sloppy: true,
+        })) {
+          throw "invalidMove";
+        }
+        await makeMove.with({
+          game,
+          chess,
+          move: aiMove,
+        });
+      }, 0);
+    }
 
     return game;
 

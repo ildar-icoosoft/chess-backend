@@ -1,3 +1,11 @@
+const {
+  makeChessInstance,
+  checkIfUserCanMove,
+  makeMove,
+  shouldAiMove,
+  generateAiMove
+} = sails.helpers;
+
 module.exports = {
 
 
@@ -30,45 +38,69 @@ module.exports = {
 
 
   exits: {
-
+    gameNotFound: {
+      statusCode: 404,
+      description: 'The provided game not found',
+    },
+    invalidMove: {
+      statusCode: 403,
+      description: 'Invalid move',
+    }
   },
 
 
   fn: async function (inputs) {
+    const {move, gameId} = inputs;
 
-    let game = await Game.findOne({
-      id: inputs.gameId
+    const game = await Game.findOne({
+      id: gameId
     });
 
-    if (game) {
-      const previous = game;
-
-      let moves = game.moves;
-      if (moves) {
-        moves += ' ';
-      }
-      moves += inputs.move;
-
-      game = await Game.updateOne(game).set({
-        moves
-      });
-
-      sails.sockets.blast('game', {
-        verb: 'updated',
-        data: {
-          id: game.id,
-          moves
-        },
-        previous,
-        id: game.id
-      }, this.req);
-
-      return game;
+    if (!game) {
+      throw "gameNotFound";
     }
 
-    // All done.
-    return;
+    const chess = makeChessInstance(game);
 
+    checkIfUserCanMove.with({
+      chess,
+      game,
+      req: this.req,
+    });
+
+    if (!chess.move(move, {
+      sloppy: true,
+    })) {
+      throw "invalidMove";
+    }
+
+    const updatedGame = await makeMove.with({
+      game,
+      chess,
+      move,
+      req: this.req
+    });
+
+    if (shouldAiMove.with({
+      chess: chess,
+      game: updatedGame
+    })) {
+      setTimeout(async () => {
+        const aiMove = generateAiMove(chess);
+        if (!chess.move(aiMove, {
+          sloppy: true,
+        })) {
+          throw "invalidMove";
+        }
+        await makeMove.with({
+          game: updatedGame,
+          chess,
+          move: aiMove,
+        });
+      }, 0);
+    }
+
+    return updatedGame;
   }
 
 
