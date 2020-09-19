@@ -30,16 +30,22 @@ module.exports = {
     },
 
     clockLimit: {
-      description: 'Clock initial time in seconds. If empty, a correspondence game is created (0 - 10800)',
+      description: 'Clock initial time in seconds (60 - 10800)',
       type: 'number',
       required: true,
       isInteger: true,
-      min: 0,
-      max: 10800
+      min: 60,
+      max: 10800,
+      custom: function(value) {
+        if (value % 60 === 0) {
+          return true;
+        }
+        return false;
+      }
     },
 
     clockIncrement: {
-      description: 'Clock increment in seconds. If empty, a correspondence game is created (0 - 60)',
+      description: 'Clock increment in seconds (0 - 60)',
       type: 'number',
       required: true,
       isInteger: true,
@@ -83,7 +89,8 @@ module.exports = {
       btime: clockLimit * 1000,
       white,
       black,
-      clockIncrement: clockIncrement,
+      clockLimit,
+      clockIncrement,
       aiLevel: level,
       moves: '',
       status: 'started'
