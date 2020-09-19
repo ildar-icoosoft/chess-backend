@@ -14,12 +14,12 @@ module.exports = {
   inputs: {
 
     level: {
-      description: 'AI strength (1 - 8)',
+      description: 'AI strength (1 - 4)',
       type: 'number',
       required: true,
       isInteger: true,
       min: 1,
-      max: 8
+      max: 4
     },
 
     color: {
@@ -52,15 +52,13 @@ module.exports = {
 
 
   fn: async function (inputs) {
+    const {level, clockLimit, clockIncrement, } = inputs;
+
     var user = await User.findOne({id: this.req.session.userId});
 
     if (!user) {
       throw 'unauthorized';
     }
-
-    // if (!this.req.isSocket) {
-    //   throw {badRequest: 'Only a client socket can subscribe to Louies.  But you look like an HTTP request to me.'};
-    // }
 
     let color = inputs.color;
 
@@ -81,12 +79,12 @@ module.exports = {
 
     const game = await Game.create({
       initialFen: 'startpos',
-      wtime: inputs.clockLimit * 1000,
-      btime: inputs.clockLimit * 1000,
+      wtime: clockLimit * 1000,
+      btime: clockLimit * 1000,
       white,
       black,
-      clockIncrement: inputs.clockIncrement,
-      aiLevel: inputs.level,
+      clockIncrement: clockIncrement,
+      aiLevel: level,
       moves: '',
       status: 'started'
     }).fetch();
@@ -104,7 +102,10 @@ module.exports = {
       game: game
     })) {
       setTimeout(async () => {
-        const aiMove = generateAiMove(chess);
+        const aiMove = generateAiMove.with({
+          chess,
+          game
+        });
         if (!chess.move(aiMove, {
           sloppy: true,
         })) {
