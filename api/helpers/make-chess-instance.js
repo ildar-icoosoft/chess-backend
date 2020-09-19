@@ -1,6 +1,6 @@
 const Chess = require('chess.js').Chess;
 
-const startPositionFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+const startPositionFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
 module.exports = {
 
@@ -15,7 +15,7 @@ module.exports = {
 
   inputs: {
     game: {
-      type: "ref",
+      type: 'ref',
       required: true
     }
   },
@@ -34,17 +34,21 @@ module.exports = {
     const game = inputs.game;
 
     let { initialFen } = game;
-    if (initialFen === "startpos") {
+    if (initialFen === 'startpos') {
       initialFen = startPositionFen;
     }
 
     const chess = new Chess(initialFen);
 
     if (game.moves) {
-      game.moves.split(" ").forEach((move) => {
-        chess.move(move, {
+      game.moves.split(' ').forEach((move) => {
+        const result = chess.move(move, {
           sloppy: true,
         });
+
+        if (!result) {
+          throw Error(`incorrect move: ${move}`);
+        }
       });
     }
 
