@@ -27,9 +27,13 @@ module.exports = {
       description: 'Black time in msec',
       example: 300000
     },
+    clockLimit: {
+      description: 'Clock initial time in seconds (60 - 10800)',
+      type: 'number',
+    },
     clockIncrement: {
       type: 'number',
-      description: 'Clock increment in sec. If empty, a correspondence game is created (0 - 60)',
+      description: 'Clock increment in sec (0 - 60)',
       example: 10
     },
     aiLevel: {
