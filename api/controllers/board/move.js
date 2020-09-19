@@ -82,11 +82,14 @@ module.exports = {
     });
 
     if (shouldAiMove.with({
-      chess: chess,
+      chess,
       game: updatedGame
     })) {
       setTimeout(async () => {
-        const aiMove = generateAiMove(chess);
+        const aiMove = generateAiMove.with({
+          chess,
+          game: updatedGame
+        });
         if (!chess.move(aiMove, {
           sloppy: true,
         })) {

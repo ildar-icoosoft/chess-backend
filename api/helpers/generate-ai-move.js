@@ -14,9 +14,13 @@ module.exports = {
 
   inputs: {
     chess: {
-      type: "ref",
+      type: 'ref',
       required: true
-    }
+    },
+    game: {
+      type: 'ref',
+      required: true
+    },
   },
 
 
@@ -35,9 +39,9 @@ module.exports = {
 
 
   fn: function (inputs) {
-    const {chess} = inputs;
+    const {chess, game} = inputs;
 
-    const moveObj = aiMove(chess.fen(), 3);
+    const moveObj = aiMove(chess.fen(), game.aiLevel - 1);
 
     for (const propName in moveObj) {
       const move = (propName + moveObj[propName]).toLowerCase();
@@ -45,7 +49,7 @@ module.exports = {
       return move;
     }
 
-    throw "internalError";
+    throw 'internalError';
   }
 
 
