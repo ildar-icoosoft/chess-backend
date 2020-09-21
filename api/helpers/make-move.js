@@ -38,7 +38,8 @@ module.exports = {
   fn: async function (inputs) {
 
     const {
-      getGameStatusAfterMove
+      getGameStatusAfterMove,
+      getTurnColor
     } = sails.helpers;
 
     const {
@@ -52,10 +53,13 @@ module.exports = {
       chess
     });
 
+    const turnColor = getTurnColor(chess);
+
     const moves = `${game.moves} ${move}`.trim();
     const updatedGame = await Game.updateOne(game).set({
       status: newStatus,
-      moves
+      moves,
+      turn: turnColor
     });
 
     sails.sockets.blast('game', {
@@ -63,7 +67,8 @@ module.exports = {
       data: {
         id: game.id,
         status: newStatus,
-        moves
+        moves,
+        turn: turnColor
       },
       previous: game,
       id: game.id

@@ -93,7 +93,8 @@ module.exports = {
       clockIncrement,
       aiLevel: level,
       moves: '',
-      status: 'started'
+      status: 'started',
+      turn: "white"
     }).fetch();
 
     sails.sockets.blast('game', {

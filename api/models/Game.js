@@ -48,6 +48,10 @@ module.exports = {
       type: 'string',
       description: 'Possible values are: started, resign, stalemate, mate, draw, aborted, outoftime'
     },
+    turn: {
+      type: 'string',
+      description: 'white or black'
+    },
     winner: {
       type: 'string',
       description: 'white or black'
