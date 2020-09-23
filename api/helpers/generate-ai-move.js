@@ -31,7 +31,6 @@ module.exports = {
     },
 
     internalError: {
-      statusCode: 500,
       description: 'Internal server error',
     }
 
