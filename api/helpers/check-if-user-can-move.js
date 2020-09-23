@@ -30,15 +30,12 @@ module.exports = {
       description: 'All done.',
     },
     gameStatusIsNotStarted: {
-      statusCode: 403,
       description: 'Game is over',
     },
     userIsNotPlayerOfThisGame: {
-      statusCode: 403,
       description: 'User is not a player of this game',
     },
     notUsersTurnToMove: {
-      statusCode: 403,
       description: 'It is not user\'s turn to move',
     }
 

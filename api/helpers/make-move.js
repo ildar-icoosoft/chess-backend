@@ -32,7 +32,6 @@ module.exports = {
       description: 'All done.',
     },
     outOfTime: {
-      statusCode: 403,
       description: 'Out of time',
     }
 
