@@ -63,12 +63,7 @@ module.exports = {
 
     if (history.length > 2) {
       // timePropName should contain time of previous move. So if current turnColor is white then timePropName will be "btime"
-      let timePropName;
-      if (turnColor === "white") {
-        timePropName = "btime";
-      } else {
-        timePropName = "wtime";
-      }
+      const timePropName = turnColor === "white" ? "btime" : "wtime";
 
       const updatedTime = game[timePropName] - (now - game.lastMoveAt);
 

@@ -90,13 +90,8 @@ module.exports = {
     if (game.status === "started") {
       const chess = makeChessInstance(game);
 
-      if (chess.history().length > 2) {
-        let timePropName;
-        if (game.turn === "white") {
-          timePropName = "wtime";
-        } else {
-          timePropName = "btime";
-        }
+      if (chess.history().length > 1) {
+        const timePropName = game.turn === "white" ? "wtime" : "btime";
 
         game[timePropName] = game[timePropName] - (Date.now() - game.lastMoveAt);
 
