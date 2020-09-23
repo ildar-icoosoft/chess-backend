@@ -5,6 +5,10 @@
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
+const {
+  makeChessInstance
+} = sails.helpers;
+
 module.exports = {
 
   attributes: {
@@ -56,6 +60,11 @@ module.exports = {
       type: 'string',
       description: 'white or black'
     },
+    lastMoveAt: {
+      type: 'number',
+      description: 'A JS timestamp (epoch ms) representing the moment at which the last move was made',
+      defaultsTo: 0
+    },
 
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
@@ -75,6 +84,35 @@ module.exports = {
     },
 
   },
+  customToJSON: function() {
+    const game = {...this};
+
+    if (game.status === "started") {
+      const chess = makeChessInstance(game);
+
+      if (chess.history().length > 2) {
+        let timePropName;
+        if (game.turn === "white") {
+          timePropName = "wtime";
+        } else {
+          timePropName = "btime";
+        }
+
+        game[timePropName] = game[timePropName] - (Date.now() - game.lastMoveAt);
+
+        if (game[timePropName] <=0) {
+          game[timePropName] = 0;
+        }
+
+        if (game[timePropName] === 0) {
+          game.status = "outoftime";
+          game.winner = game.turn === "white" ? "black" : "white";
+        }
+      }
+    }
+
+    return game;
+  }
 
 };
 
