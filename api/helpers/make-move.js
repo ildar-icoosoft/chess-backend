@@ -31,6 +31,10 @@ module.exports = {
     success: {
       description: 'All done.',
     },
+    outOfTime: {
+      statusCode: 403,
+      description: 'Out of time',
+    }
 
   },
 
@@ -49,28 +53,52 @@ module.exports = {
       move
     } = inputs;
 
+    const turnColor = getTurnColor(chess);
+
+    const now = Date.now();
+
+    const history = chess.history();
+
+    const updatedData = {};
+
+    if (history.length > 2) {
+      // timePropName should contain time of previous move. So if current turnColor is white then timePropName will be "btime"
+      let timePropName;
+      if (turnColor === "white") {
+        timePropName = "btime";
+      } else {
+        timePropName = "wtime";
+      }
+
+      const updatedTime = game[timePropName] - (now - game.lastMoveAt);
+
+      if (updatedTime < 0) {
+        throw "outOfTime";
+      }
+
+      updatedData[timePropName] = updatedTime;
+    }
+
     const newStatus = getGameStatusAfterMove.with({
       chess
     });
 
-    const turnColor = getTurnColor(chess);
-
     const moves = `${game.moves} ${move}`.trim();
-    const updatedGame = await Game.updateOne(game).set({
+
+    Object.assign(updatedData,{
       status: newStatus,
       moves,
       turn: turnColor,
-      lastMoveAt: Date.now()
+      lastMoveAt: now
     });
+
+    const updatedGame = await Game.updateOne(game).set(updatedData);
 
     sails.sockets.blast('game', {
       verb: 'updated',
       data: {
         id: game.id,
-        status: newStatus,
-        moves,
-        turn: turnColor,
-        lastMoveAt: Date.now()
+        ...updatedData
       },
       previous: game,
       id: game.id
