@@ -56,6 +56,11 @@ module.exports = {
       type: 'string',
       description: 'white or black'
     },
+    lastMoveAt: {
+      type: 'number',
+      description: 'A JS timestamp (epoch ms) representing the moment at which the last move was made',
+      defaultsTo: 0
+    },
 
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗

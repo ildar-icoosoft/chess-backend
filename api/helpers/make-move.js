@@ -59,7 +59,8 @@ module.exports = {
     const updatedGame = await Game.updateOne(game).set({
       status: newStatus,
       moves,
-      turn: turnColor
+      turn: turnColor,
+      lastMoveAt: Date.now()
     });
 
     sails.sockets.blast('game', {
@@ -68,7 +69,8 @@ module.exports = {
         id: game.id,
         status: newStatus,
         moves,
-        turn: turnColor
+        turn: turnColor,
+        lastMoveAt: Date.now()
       },
       previous: game,
       id: game.id
