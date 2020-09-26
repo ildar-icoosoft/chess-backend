@@ -41,6 +41,9 @@ module.exports = {
     drawOfferAlreadyCreated: {
       description: 'Draw offer is already created',
     },
+    offersVsAINotAllowed: {
+      description: 'Offers VS AI not allowed',
+    }
   },
 
 
@@ -53,6 +56,10 @@ module.exports = {
 
     if (game.status !== "started") {
       throw "gameStatusIsNotStarted";
+    }
+
+    if (game.aiLevel !== 0) {
+      throw "offersVsAINotAllowed";
     }
 
     if (req.session.userId !== game.white && req.session.userId !== game.black) {
