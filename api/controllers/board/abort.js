@@ -48,6 +48,7 @@ module.exports = {
 
     const updatedGame = await abortGame.with({
       game,
+      req: this.req,
     });
 
     return updatedGame;
