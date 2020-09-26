@@ -1,10 +1,10 @@
 module.exports = {
 
 
-  friendlyName: 'Abort',
+  friendlyName: 'Create or accept draw offer',
 
 
-  description: 'Abort board.',
+  description: '',
 
 
   inputs: {
@@ -27,11 +27,13 @@ module.exports = {
   fn: async function (inputs) {
     const {
       makeChessInstance,
-      checkIfUserCanAbortGame,
-      abortGame,
+      checkIfUserCanCreateOrAcceptDrawOffer,
+      createOrAcceptDrawOffer,
     } = sails.helpers;
 
-    const {gameId} = inputs;
+    const {
+      gameId,
+    } = inputs;
 
     const game = await Game.findOne({
       id: gameId
@@ -43,18 +45,20 @@ module.exports = {
 
     const chess = makeChessInstance(game);
 
-    checkIfUserCanAbortGame.with({
+    checkIfUserCanCreateOrAcceptDrawOffer.with({
       chess,
       game,
       req: this.req,
     });
 
-    const updatedGame = await abortGame.with({
+    const updatedGame = await createOrAcceptDrawOffer.with({
+      chess,
       game,
       req: this.req,
     });
 
     return updatedGame;
+
   }
 
 

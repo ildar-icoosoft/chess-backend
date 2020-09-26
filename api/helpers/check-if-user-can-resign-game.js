@@ -59,7 +59,7 @@ module.exports = {
 
     const movesHistory = chess.history();
 
-    if (movesHistory.length < 3) {
+    if (movesHistory.length < 2) {
       throw "cantResignBeforeThreeMoves";
     }
   }

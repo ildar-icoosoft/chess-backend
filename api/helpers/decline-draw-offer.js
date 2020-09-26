@@ -1,7 +1,7 @@
 module.exports = {
 
 
-  friendlyName: 'Resign game',
+  friendlyName: 'Decline draw offer',
 
 
   description: '',
@@ -14,12 +14,6 @@ module.exports = {
     },
     chess: {
       type: "ref",
-      required: true
-    },
-    winner: {
-      description: 'Which color is winner',
-      type: 'string',
-      isIn: ['white', 'black'],
       required: true
     },
     req: {
@@ -42,7 +36,6 @@ module.exports = {
 
 
   fn: async function (inputs) {
-
     const {
       getTurnColor
     } = sails.helpers;
@@ -50,7 +43,6 @@ module.exports = {
     const {
       game,
       chess,
-      winner,
       req
     } = inputs;
 
@@ -67,11 +59,8 @@ module.exports = {
     }
 
     const updatedData = {
-      status: "resign",
-      winner
+      drawOffer: null
     };
-
-    updatedData[timePropName] = updatedTime;
 
     const updatedGame = await Game.updateOne(game).set(updatedData);
 

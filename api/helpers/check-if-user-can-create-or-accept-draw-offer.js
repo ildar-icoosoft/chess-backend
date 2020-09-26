@@ -1,7 +1,7 @@
 module.exports = {
 
 
-  friendlyName: 'Check if user can abort game',
+  friendlyName: 'Check if user can create or accept draw offer',
 
 
   description: '',
@@ -29,17 +29,21 @@ module.exports = {
     success: {
       description: 'All done.',
     },
-
     gameStatusIsNotStarted: {
       description: 'Game is over',
     },
     userIsNotPlayerOfThisGame: {
       description: 'User is not a player of this game',
     },
-    cantAbortAfterTwoMoves: {
-      description: 'Can\'t abort the game after two moves',
+    cantCreateDrawBeforeThreeMoves: {
+      description: 'Can\'t create draw before three moves',
     },
-
+    drawOfferAlreadyCreated: {
+      description: 'Draw offer is already created',
+    },
+    drawOffersVsAINotAllowed: {
+      description: 'Draw offers VS AI not allowed',
+    }
   },
 
 
@@ -54,14 +58,26 @@ module.exports = {
       throw "gameStatusIsNotStarted";
     }
 
+    if (game.aiLevel !== 0) {
+      throw "drawOffersVsAINotAllowed";
+    }
+
     if (req.session.userId !== game.white && req.session.userId !== game.black) {
       throw "userIsNotPlayerOfThisGame";
     }
 
-    const movesHistory = chess.history();
+    const playerPiecesColor =  req.session.userId === game.white ? "white" : "black";
 
-    if (movesHistory.length > 1) {
-      throw "cantAbortAfterTwoMoves";
+    if (game.drawOffer === playerPiecesColor) {
+      throw "drawOfferAlreadyCreated";
+    }
+
+    if (game.drawOffer === null) {
+      const movesHistory = chess.history();
+
+      if (movesHistory.length < 2) {
+        throw "cantCreateDrawBeforeThreeMoves";
+      }
     }
   }
 

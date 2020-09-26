@@ -1,7 +1,7 @@
 module.exports = {
 
 
-  friendlyName: 'Check if user can abort game',
+  friendlyName: 'Check if user can decline draw offer',
 
 
   description: '',
@@ -9,10 +9,6 @@ module.exports = {
   sync: true,
 
   inputs: {
-    chess: {
-      type: "ref",
-      required: true
-    },
     game: {
       type: "ref",
       required: true
@@ -29,23 +25,21 @@ module.exports = {
     success: {
       description: 'All done.',
     },
-
     gameStatusIsNotStarted: {
       description: 'Game is over',
     },
     userIsNotPlayerOfThisGame: {
       description: 'User is not a player of this game',
     },
-    cantAbortAfterTwoMoves: {
-      description: 'Can\'t abort the game after two moves',
-    },
+    noDrawOffer: {
+      description: "Draw did not offered to the player"
+    }
 
   },
 
 
   fn: function (inputs) {
     const {
-      chess,
       game,
       req
     } = inputs;
@@ -58,10 +52,10 @@ module.exports = {
       throw "userIsNotPlayerOfThisGame";
     }
 
-    const movesHistory = chess.history();
+    const drawOfferFrom = req.session.userId === game.white ? "black" : "white";
 
-    if (movesHistory.length > 1) {
-      throw "cantAbortAfterTwoMoves";
+    if (game.drawOffer !== drawOfferFrom) {
+      throw "noDrawOffer";
     }
   }
 

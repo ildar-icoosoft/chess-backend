@@ -58,7 +58,13 @@ module.exports = {
     },
     winner: {
       type: 'string',
-      description: 'white or black'
+      description: 'white or black',
+      allowNull: true
+    },
+    drawOffer: {
+      type: 'string',
+      description: 'white or black',
+      allowNull: true
     },
     lastMoveAt: {
       type: 'number',
