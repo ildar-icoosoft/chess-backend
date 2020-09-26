@@ -64,7 +64,7 @@ module.exports = {
       updatedData.drawOffer = turnColor;
     } else {
       updatedData.status = "draw";
-      game[timePropName] = now;
+      updatedData[timePropName] = updatedTime;
     }
 
     const updatedGame = await Game.updateOne(game).set(updatedData);

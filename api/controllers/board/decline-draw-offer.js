@@ -29,6 +29,7 @@ module.exports = {
     const {
       checkIfUserCanDeclineDrawOffer,
       declineDrawOffer,
+      makeChessInstance
     } = sails.helpers;
 
     const {
@@ -43,12 +44,15 @@ module.exports = {
       throw "gameNotFound";
     }
 
+    const chess = makeChessInstance(game);
+
     checkIfUserCanDeclineDrawOffer.with({
       game,
       req: this.req,
     });
 
     const updatedGame = await declineDrawOffer.with({
+      chess,
       game,
       req: this.req,
     });
