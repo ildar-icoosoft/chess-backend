@@ -1,11 +1,3 @@
-const {
-  makeChessInstance,
-  checkIfUserCanMove,
-  makeMove,
-  shouldAiMove,
-  generateAiMove
-} = sails.helpers;
-
 module.exports = {
 
 
@@ -18,20 +10,12 @@ module.exports = {
   inputs: {
     gameId: {
       description: 'The ID of the user to look up.',
-      // By declaring a numeric example, Sails will automatically respond with `res.badRequest`
-      // if the `userId` parameter is not a number.
       type: 'number',
-      // By making the `userId` parameter required, Sails will automatically respond with
-      // `res.badRequest` if it's left out.
       required: true
     },
     move: {
       description: 'The ID of the user to look up.',
-      // By declaring a numeric example, Sails will automatically respond with `res.badRequest`
-      // if the `userId` parameter is not a number.
       type: 'string',
-      // By making the `userId` parameter required, Sails will automatically respond with
-      // `res.badRequest` if it's left out.
       required: true
     }
   },
@@ -50,6 +34,14 @@ module.exports = {
 
 
   fn: async function (inputs) {
+    const {
+      makeChessInstance,
+      checkIfUserCanMove,
+      makeMove,
+      shouldAiMove,
+      generateAiMove
+    } = sails.helpers;
+
     const {move, gameId} = inputs;
 
     const game = await Game.findOne({
