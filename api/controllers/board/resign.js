@@ -9,7 +9,7 @@ module.exports = {
 
   inputs: {
     gameId: {
-      description: 'The ID of the user to look up.',
+      description: 'The ID of the game to look up.',
       type: 'number',
       required: true
     },
@@ -17,7 +17,10 @@ module.exports = {
 
 
   exits: {
-
+    gameNotFound: {
+      statusCode: 404,
+      description: 'The provided game not found',
+    }
   },
 
 
