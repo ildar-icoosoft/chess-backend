@@ -1,10 +1,3 @@
-const {
-  makeChessInstance,
-  makeMove,
-  shouldAiMove,
-  generateAiMove
-} = sails.helpers;
-
 module.exports = {
 
   friendlyName: 'Ai',
@@ -58,6 +51,13 @@ module.exports = {
 
 
   fn: async function (inputs) {
+    const {
+      makeChessInstance,
+      makeMove,
+      shouldAiMove,
+      generateAiMove
+    } = sails.helpers;
+
     const {level, clockLimit, clockIncrement, } = inputs;
 
     var user = await User.findOne({id: this.req.session.userId});
