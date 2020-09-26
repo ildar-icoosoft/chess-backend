@@ -59,9 +59,9 @@ module.exports = {
       throw "userIsNotPlayerOfThisGame";
     }
 
-    const playerColor =  req.session.userId === game.white ? "white" : "black";
+    const playerPiecesColor =  req.session.userId === game.white ? "white" : "black";
 
-    if (game.drawOffer === playerColor) {
+    if (game.drawOffer === playerPiecesColor) {
       throw "drawOfferAlreadyCreated";
     }
 
