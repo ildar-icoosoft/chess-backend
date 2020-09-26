@@ -60,7 +60,7 @@ module.exports = {
 
     const movesHistory = chess.history();
 
-    if (movesHistory.length > 2) {
+    if (movesHistory.length > 1) {
       throw "cantAbortAfterTwoMoves";
     }
   }
