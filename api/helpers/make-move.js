@@ -60,6 +60,10 @@ module.exports = {
 
     const updatedData = {};
 
+    if (game.drawOffer && game.drawOffer === turnColor) {
+      updatedData.drawOffer = null;
+    }
+
     if (history.length > 2) {
       // timePropName should contain time of previous move. So if current turnColor is white then timePropName will be "btime"
       const timePropName = turnColor === "white" ? "btime" : "wtime";

@@ -6,6 +6,7 @@ module.exports = {
 
   description: '',
 
+  sync: true,
 
   inputs: {
     game: {
@@ -37,7 +38,7 @@ module.exports = {
   },
 
 
-  fn: async function (inputs) {
+  fn: function (inputs) {
     const {
       game,
       req
