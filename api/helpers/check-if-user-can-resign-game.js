@@ -9,7 +9,18 @@ module.exports = {
   sync: true,
 
   inputs: {
-
+    chess: {
+      type: "ref",
+      required: true
+    },
+    game: {
+      type: "ref",
+      required: true
+    },
+    req: {
+      type: "ref",
+      required: true
+    }
   },
 
 

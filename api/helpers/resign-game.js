@@ -12,6 +12,10 @@ module.exports = {
       type: "ref",
       required: true
     },
+    chess: {
+      type: "ref",
+      required: true
+    },
     winner: {
       description: 'Which color is winner',
       type: 'string',
@@ -20,6 +24,7 @@ module.exports = {
     },
     req: {
       type: "ref",
+      required: true
     }
   },
 
@@ -29,21 +34,44 @@ module.exports = {
     success: {
       description: 'All done.',
     },
+    outOfTime: {
+      description: 'Out of time',
+    }
 
   },
 
 
   fn: async function (inputs) {
+
+    const {
+      getTurnColor
+    } = sails.helpers;
+
     const {
       game,
+      chess,
       winner,
       req
     } = inputs;
+
+    const turnColor = getTurnColor(chess);
+
+    const now = Date.now();
 
     const updatedData = {
       status: "resign",
       winner
     };
+
+    const timePropName = turnColor === "white" ? "wtime" : "btime";
+
+    const updatedTime = game[timePropName] - (now - game.lastMoveAt);
+
+    if (updatedTime < 0) {
+      throw "outOfTime";
+    }
+
+    updatedData[timePropName] = updatedTime;
 
     const updatedGame = await Game.updateOne(game).set(updatedData);
 

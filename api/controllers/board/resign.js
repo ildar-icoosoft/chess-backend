@@ -51,7 +51,9 @@ module.exports = {
 
     const updatedGame = await resignGame.with({
       game,
-      winner
+      chess,
+      winner,
+      req: this.req,
     });
 
     return updatedGame;
