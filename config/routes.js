@@ -68,7 +68,6 @@ module.exports.routes = {
   'POST /api/v1/board/game/:gameId/resign': {action: 'board/resign'},
   'POST /api/v1/board/game/:gameId/draw/yes': {action: 'board/create-or-accept-draw-offer'},
   'POST /api/v1/board/game/:gameId/draw/no': {action: 'board/decline-draw-offer'},
-  'GET /api/v1/game/playing': {action: 'game/get-playing-games'},
 
   'GET /api/v1/account/me': {action: 'account/me'},
 };
