@@ -83,9 +83,15 @@ module.exports = {
 
     const moves = `${game.moves} ${move}`.trim();
 
+    let winner = null;
+    if (chess.in_checkmate()) {
+      winner = chess.turn() === "white" ? "black" : "white";
+    }
+
     Object.assign(updatedData,{
       status: newStatus,
       moves,
+      winner,
       turn: turnColor,
       lastMoveAt: now
     });
