@@ -60,7 +60,7 @@ module.exports = {
 
     const {level, clockLimit, clockIncrement, } = inputs;
 
-    var user = await User.findOne({id: this.req.session.userId});
+    const user = await User.findOne({id: this.req.session.userId});
 
     if (!user) {
       throw 'unauthorized';
