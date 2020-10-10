@@ -54,9 +54,10 @@ module.exports = {
     const {color, clockLimit, clockIncrement} = inputs;
 
     const seek = await Seek.create({
-      color,
       clockLimit,
       clockIncrement,
+      color,
+      createdBy: this.req.session.userId,
       socketId: this.req.socket.id
     }).fetch();
 
