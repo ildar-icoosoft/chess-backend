@@ -61,12 +61,10 @@ module.exports.sockets = {
   ***************************************************************************/
 
   afterDisconnect: async function(session, socket, done) {
-
-    console.log('disconnecting!');
-
-    if (session.seekId) {
-      await Seek.destroyOne({
-        id: session.seekId
+    // @todo. we need to store seek ID in session
+    if (session.userId) {
+      await Seek.destroy({
+        socketId: socket.id
       });
     }
 

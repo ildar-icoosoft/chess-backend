@@ -26,6 +26,13 @@ module.exports = {
       example: 0
     },
 
+    // @todo. remove this property. We use it because I don't know how to store
+    //  Seek ID in session and get it in sockets afterDisconnect callback
+    socketId: {
+      description: 'socket ID',
+      type: 'string'
+    },
+
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝

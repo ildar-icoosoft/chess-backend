@@ -57,9 +57,8 @@ module.exports = {
       color,
       clockLimit,
       clockIncrement,
+      socketId: this.req.socket.id
     }).fetch();
-
-    this.req.session.seekId = seek.id;
 
     sails.sockets.blast('seek', {
       verb: 'created',
