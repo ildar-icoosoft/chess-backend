@@ -42,7 +42,7 @@ module.exports = {
     },
     aiLevel: {
       type: 'number',
-      example: '0 if them game is not against AI. 1 - 8 for AI strength'
+      example: '0 if the game is not against AI. 1 - 8 for AI strength'
     },
     moves: {
       type: 'string',
