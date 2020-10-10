@@ -1,7 +1,7 @@
 module.exports = {
 
 
-  friendlyName: 'Create seek',
+  friendlyName: 'Create a public seek, to start a game with a random player',
 
 
   description: '',
