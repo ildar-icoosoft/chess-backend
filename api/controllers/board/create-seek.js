@@ -73,13 +73,19 @@ module.exports = {
       });
 
       if (updatedSeek && updatedSeek.game) {
+        clearInterval(intervalId);
+
         exits.success({
           gameId: updatedSeek.game
         });
-        clearInterval(intervalId);
+
+        await Seek.destroyOne({
+          id: updatedSeek.id
+        });
       } else if (!updatedSeek) {
-        exits.notFound();
         clearInterval(intervalId);
+
+        exits.notFound();
       }
     }, 3000);
 
