@@ -37,7 +37,7 @@ module.exports = {
 
     const game = await Game.findOne({
       id: gameId
-    });
+    }).populate('white').populate('black');
 
     if (!game) {
       throw "gameNotFound";
