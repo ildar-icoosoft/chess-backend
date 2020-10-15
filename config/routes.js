@@ -63,6 +63,8 @@ module.exports.routes = {
   'POST  /api/v1/deliver-contact-form-message': {action: 'deliver-contact-form-message'},
 
   'POST /api/v1/challenge/ai': {action: 'challenge/ai'},
+  'POST /api/v1/board/seek': {action: 'board/create-seek'},
+  'POST /api/v1/board/seek/:seekId/accept': {action: 'board/accept-seek'},
   'POST /api/v1/board/game/:gameId/move/:move': {action: 'board/move'},
   'POST /api/v1/board/game/:gameId/abort': {action: 'board/abort'},
   'POST /api/v1/board/game/:gameId/resign': {action: 'board/resign'},

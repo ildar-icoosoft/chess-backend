@@ -25,5 +25,8 @@ module.exports.policies = {
   GameController: {
     '*': true,
   },
+  SeekController: {
+    '*': true,
+  },
 
 };
