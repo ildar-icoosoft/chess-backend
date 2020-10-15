@@ -97,9 +97,11 @@ module.exports = {
       turn: "white"
     }).fetch();
 
+    const populatedGame = await Game.findOne(game.id).populate('white').populate('black');
+
     sails.sockets.blast('game', {
       verb: 'created',
-      data: game,
+      data: populatedGame,
       id: game.id
     }, this.req);
 
