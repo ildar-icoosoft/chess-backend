@@ -62,11 +62,11 @@ module.exports = {
       throw "drawOffersVsAINotAllowed";
     }
 
-    if (req.session.userId !== game.white && req.session.userId !== game.black) {
+    if (!(game.white && req.session.userId === game.white.id) || (game.black && req.session.userId === game.black.id)) {
       throw "userIsNotPlayerOfThisGame";
     }
 
-    const playerPiecesColor =  req.session.userId === game.white ? "white" : "black";
+    const playerPiecesColor = (game.white && req.session.userId === game.white.id) ? "white" : "black";
 
     if (game.drawOffer === playerPiecesColor) {
       throw "drawOfferAlreadyCreated";

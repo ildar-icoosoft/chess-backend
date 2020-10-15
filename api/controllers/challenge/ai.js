@@ -60,7 +60,7 @@ module.exports = {
 
     const {level, clockLimit, clockIncrement, } = inputs;
 
-    var user = await User.findOne({id: this.req.session.userId});
+    const user = await User.findOne({id: this.req.session.userId});
 
     if (!user) {
       throw 'unauthorized';
@@ -83,7 +83,7 @@ module.exports = {
       black = user.id;
     }
 
-    const game = await Game.create({
+    const notPopulatedGame = await Game.create({
       initialFen: 'startpos',
       wtime: clockLimit * 1000,
       btime: clockLimit * 1000,
@@ -96,6 +96,7 @@ module.exports = {
       status: 'started',
       turn: "white"
     }).fetch();
+    const game = await Game.findOne(notPopulatedGame.id).populate('white').populate('black');
 
     sails.sockets.blast('game', {
       verb: 'created',
