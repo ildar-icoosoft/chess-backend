@@ -62,7 +62,7 @@ module.exports = {
       throw "drawOffersVsAINotAllowed";
     }
 
-    if (!(game.white && req.session.userId === game.white.id) || (game.black && req.session.userId === game.black.id)) {
+    if (!(game.white && req.session.userId === game.white.id) && !(game.black && req.session.userId === game.black.id)) {
       throw "userIsNotPlayerOfThisGame";
     }
 
