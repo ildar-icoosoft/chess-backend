@@ -53,11 +53,14 @@ module.exports = {
       throw "gameStatusIsNotStarted";
     }
 
-    if (req.session.userId !== game.white && req.session.userId !== game.black) {
+    if (!(game.white && req.session.userId === game.white.id) || (game.black && req.session.userId === game.black.id)) {
       throw "userIsNotPlayerOfThisGame";
     }
 
-    if ((chess.turn() === "w" && req.session.userId !== game.white) || (chess.turn() === "b" && req.session.userId !== game.black)) {
+    if (
+      (chess.turn() === "w" && (!game.white || req.session.userId !== game.white.id) ) ||
+      (chess.turn() === "b" && (!game.black || req.session.userId !== game.black.id) )
+    ) {
       throw "notUsersTurnToMove";
     }
   }

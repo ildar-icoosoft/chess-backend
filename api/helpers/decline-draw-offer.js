@@ -62,7 +62,8 @@ module.exports = {
       drawOffer: null
     };
 
-    const updatedGame = await Game.updateOne(game).set(updatedData);
+    await Game.updateOne({id: game.id}).set(updatedData);
+    const updatedGame = await Game.findOne({id: game.id}).populate('white').populate('black');
 
     sails.sockets.blast('game', {
       verb: 'updated',
