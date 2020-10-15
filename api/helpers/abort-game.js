@@ -38,8 +38,10 @@ module.exports = {
       status: "aborted"
     };
 
-    const notPopulatedUpdatedGame = await Game.updateOne(game).set(updatedData);
-    const updatedGame = Game.findOne({id: notPopulatedUpdatedGame.id}).populate('white').populate('black');
+    await Game.updateOne({
+      id: game.id
+    }).set(updatedData);
+    const updatedGame = Game.findOne({id: game.id}).populate('white').populate('black');
 
     sails.sockets.blast('game', {
       verb: 'updated',
