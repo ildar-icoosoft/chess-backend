@@ -12,10 +12,6 @@ module.exports = {
       type: "ref",
       required: true
     },
-    chess: {
-      type: "ref",
-      required: true
-    },
     req: {
       type: "ref",
       required: true
@@ -37,16 +33,11 @@ module.exports = {
 
   fn: async function (inputs) {
     const {
-      getTurnColor
-    } = sails.helpers;
-
-    const {
       game,
-      chess,
       req
     } = inputs;
 
-    const turnColor = getTurnColor(chess);
+    const turnColor = game.turn;
 
     const now = Date.now();
 
