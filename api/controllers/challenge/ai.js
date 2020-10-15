@@ -83,7 +83,7 @@ module.exports = {
       black = user.id;
     }
 
-    const game = await Game.create({
+    const notPopulatedGame = await Game.create({
       initialFen: 'startpos',
       wtime: clockLimit * 1000,
       btime: clockLimit * 1000,
@@ -96,12 +96,11 @@ module.exports = {
       status: 'started',
       turn: "white"
     }).fetch();
-
-    const populatedGame = await Game.findOne(game.id).populate('white').populate('black');
+    const game = await Game.findOne(notPopulatedGame.id).populate('white').populate('black');
 
     sails.sockets.blast('game', {
       verb: 'created',
-      data: populatedGame,
+      data: game,
       id: game.id
     }, this.req);
 
