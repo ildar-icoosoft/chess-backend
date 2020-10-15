@@ -53,10 +53,10 @@ module.exports = {
     const clockIncrement = seek.clockIncrement;
 
     if (color === 'white') {
-      white = seek.createdBy;
+      white = seek.createdBy.id;
       black = this.req.session.userId;
     } else if (color === 'black') {
-      black = seek.createdBy;
+      black = seek.createdBy.id;
       white = this.req.session.userId;
     }
 
