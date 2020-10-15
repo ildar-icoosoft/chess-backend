@@ -52,7 +52,6 @@ module.exports = {
     });
 
     const updatedGame = await createOrAcceptDrawOffer.with({
-      chess,
       game,
       req: this.req,
     });

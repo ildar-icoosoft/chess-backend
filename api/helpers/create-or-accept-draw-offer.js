@@ -12,10 +12,6 @@ module.exports = {
       type: "ref",
       required: true
     },
-    chess: {
-      type: "ref",
-      required: true
-    },
     req: {
       type: "ref",
       required: true
@@ -37,16 +33,11 @@ module.exports = {
 
   fn: async function (inputs) {
     const {
-      getTurnColor
-    } = sails.helpers;
-
-    const {
       game,
-      chess,
       req
     } = inputs;
 
-    const turnColor = getTurnColor(chess);
+    const turnColor = game.turn;
 
     const now = Date.now();
 
@@ -61,7 +52,9 @@ module.exports = {
     const updatedData = {};
 
     if (game.drawOffer === null) {
-      updatedData.drawOffer = turnColor;
+      const playerPiecesColor = (game.white && req.session.userId === game.white.id) ? "white" : "black";
+
+      updatedData.drawOffer = playerPiecesColor;
     } else {
       updatedData.status = "draw";
       updatedData[timePropName] = updatedTime;
