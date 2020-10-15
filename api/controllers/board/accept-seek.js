@@ -32,7 +32,7 @@ module.exports = {
 
     const seek = await Seek.findOne({
       id: seekId
-    });
+    }).populate('createdBy').populate('game');
 
     if (!seek) {
       throw "seekNotFound";
@@ -60,7 +60,7 @@ module.exports = {
       white = this.req.session.userId;
     }
 
-    const game = await Game.create({
+    const notPopulatedGame = await Game.create({
       initialFen: 'startpos',
       wtime: clockLimit * 1000,
       btime: clockLimit * 1000,
@@ -73,12 +73,32 @@ module.exports = {
       status: 'started',
       turn: "white"
     }).fetch();
+    const game = await Game.findOne({id: notPopulatedGame.id}).populate('white').populate('black');
 
     sails.sockets.blast('game', {
       verb: 'created',
       data: game,
       id: game.id
     }, this.req);
+
+    const seekUpdatedData = {
+      game: game.id
+    };
+
+    await Seek.updateOne({id: seek.id}).set(seekUpdatedData);
+    const updatedSeek = await Seek.findOne({id: seek.id}).populate('createdBy').populate('game');
+
+    sails.sockets.blast('seek', {
+      verb: 'updated',
+      data: {
+        id: seek.id,
+        game
+      },
+      previous: seek,
+      id: seek.id
+    }, this.req);
+
+    return updatedSeek;
   }
 
 

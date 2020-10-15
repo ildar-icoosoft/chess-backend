@@ -53,19 +53,21 @@ module.exports = {
 
     const {color, clockLimit, clockIncrement} = inputs;
 
-    const seek = await Seek.create({
+    const notPopulatedSeek = await Seek.create({
       clockLimit,
       clockIncrement,
       color,
       createdBy: this.req.session.userId,
       socketId: this.req.socket.id
     }).fetch();
+    const seek = await Seek.findOne({id: notPopulatedSeek.id}).populate('createdBy').populate('game');
+
 
     sails.sockets.blast('seek', {
       verb: 'created',
       data: seek,
       id: seek.id
-    }, this.req);
+    });
 
     const intervalId = setInterval(async () => {
       const updatedSeek = await Seek.findOne({
@@ -75,11 +77,17 @@ module.exports = {
       if (updatedSeek && updatedSeek.game) {
         clearInterval(intervalId);
 
-        exits.success({
-          gameId: updatedSeek.game
-        });
+        const game = await Game.findOne({id: updatedSeek.game}).populate('white').populate('black');
+
+        exits.success(game);
 
         await Seek.destroyOne({
+          id: updatedSeek.id
+        });
+
+        sails.sockets.blast('seek', {
+          verb: 'destroyed',
+          previous: updatedSeek,
           id: updatedSeek.id
         });
       } else if (!updatedSeek) {
