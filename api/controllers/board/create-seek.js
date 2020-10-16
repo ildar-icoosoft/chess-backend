@@ -67,7 +67,7 @@ module.exports = {
       verb: 'created',
       data: seek,
       id: seek.id
-    });
+    }, this.req);
 
     const intervalId = setInterval(async () => {
       const updatedSeek = await Seek.findOne({
