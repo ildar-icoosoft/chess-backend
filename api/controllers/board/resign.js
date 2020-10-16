@@ -50,7 +50,7 @@ module.exports = {
       req: this.req,
     });
 
-    const winner = this.req.session.userId === game.white ? "black" : "white";
+    const winner = (game.white && this.req.session.userId === game.white.id) ? "black" : "white";
 
     const updatedGame = await resignGame.with({
       game,
