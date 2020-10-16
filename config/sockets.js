@@ -63,6 +63,18 @@ module.exports.sockets = {
   afterDisconnect: async function(session, socket, done) {
     // @todo. we need to store seek ID in session
     if (session.userId) {
+      const seeks = await Seek.find({
+        socketId: socket.id
+      }).populate('createdBy').populate('game');
+
+      seeks.forEach(item => {
+        sails.sockets.blast('seek', {
+          verb: 'destroyed',
+          previous: item,
+          id: item.id
+        });
+      });
+
       await Seek.destroy({
         socketId: socket.id
       });
