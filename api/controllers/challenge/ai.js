@@ -56,16 +56,16 @@ module.exports = {
 
 
   fn: async function (inputs) {
+    if (!this.req.me) {
+      throw 'unauthorized';
+    }
+
     const {
       makeChessInstance,
       makeMove,
       shouldAiMove,
       generateAiMove
     } = sails.helpers;
-
-    if (!this.req.me) {
-      throw 'unauthorized';
-    }
 
     const {level, clockLimit, clockIncrement } = inputs;
 

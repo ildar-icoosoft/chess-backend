@@ -45,11 +45,19 @@ module.exports = {
     notFound: {
       description: 'Seek not found. The connection may have been aborted by the client',
       responseType: 'notFound'
+    },
+    unauthorized: {
+      statusCode: 401,
+      description: "You must log in to create a game",
     }
   },
 
 
   fn: async function (inputs, exits) {
+
+    if (!this.req.me) {
+      throw 'unauthorized';
+    }
 
     const {color, clockLimit, clockIncrement} = inputs;
 
