@@ -47,7 +47,12 @@ module.exports = {
     }
   },
 
-  exits: {},
+  exits: {
+    unauthorized: {
+      statusCode: 401,
+      description: "You must log in to play with computer",
+    }
+  },
 
 
   fn: async function (inputs) {
@@ -58,13 +63,13 @@ module.exports = {
       generateAiMove
     } = sails.helpers;
 
-    const {level, clockLimit, clockIncrement, } = inputs;
-
-    const user = await User.findOne({id: this.req.session.userId});
-
-    if (!user) {
+    if (!this.req.me) {
       throw 'unauthorized';
     }
+
+    const {level, clockLimit, clockIncrement } = inputs;
+
+    const user = this.req.me;
 
     let color = inputs.color;
 

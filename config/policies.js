@@ -29,4 +29,5 @@ module.exports.policies = {
     '*': true,
   },
 
+  'challenge/ai': true, // @todo. I accept unauthorized request to this method, because I need to return custom 401 error message
 };
