@@ -20,11 +20,19 @@ module.exports = {
     seekNotFound: {
       statusCode: 404,
       description: 'The provided seek not found',
+    },
+    unauthorized: {
+      statusCode: 401,
+      description: "You must log in to create a game",
     }
   },
 
 
   fn: async function (inputs) {
+
+    if (!this.req.me) {
+      throw 'unauthorized';
+    }
 
     const {
       seekId
