@@ -22,12 +22,10 @@ module.exports.policies = {
   'legal/view-privacy': true,
   'deliver-contact-form-message': true,
 
-  GameController: {
-    '*': true,
-  },
-  SeekController: {
-    '*': true,
-  },
+  'game/find': true,
+  'game/findOne': true,
+  'seek/find': true,
+  'user/find': true,
 
   'challenge/ai': true, // @todo. I accept unauthorized request to this method, because I need to return custom 401 error message
   'board/create-seek': true, // @todo. I accept unauthorized request to this method, because I need to return custom 401 error message
