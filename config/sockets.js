@@ -9,6 +9,9 @@
  * https://sailsjs.com/config/sockets
  */
 
+// @see https://stackoverflow.com/questions/23101898/how-to-use-socketio-for-showing-online-offline-user-in-real-time-using-sails
+const onlineUsers = {};
+
 module.exports.sockets = {
 
   /***************************************************************************
@@ -44,11 +47,20 @@ module.exports.sockets = {
 
   // beforeConnect: function(handshake, proceed) {
   //
+  //   // https://stackoverflow.com/questions/23101898/how-to-use-socketio-for-showing-online-offline-user-in-real-time-using-sails
+  //
+  //
   //   // `true` allows the socket to connect.
   //   // (`false` would reject the connection)
   //   return proceed(undefined, true);
   //
   // },
+
+  onConnect: async function(session, socket) {
+    if (session.userId) {
+      await sails.helpers.setIsOnline(session.userId, true, socket);
+    }
+  },
 
 
   /***************************************************************************
@@ -61,6 +73,10 @@ module.exports.sockets = {
   ***************************************************************************/
 
   afterDisconnect: async function(session, socket, done) {
+    if (session.userId) {
+      await sails.helpers.setIsOnline(session.userId, false);
+    }
+
     // @todo. we need to store seek ID in session
     if (session.userId) {
       const seeks = await Seek.find({
