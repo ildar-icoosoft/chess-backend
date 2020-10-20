@@ -104,11 +104,15 @@ and exposed as \`req.me\`.)`
       }
     }//ﬁ
 
+    const userId = userRecord.id;
+
     // Modify the active session instance.
     // (This will be persisted when the response is sent.)
-    this.req.session.userId = userRecord.id;
+    this.req.session.userId = userId;
 
-    return userRecord;
+    await sails.helpers.setIsOnline(userId, true, this.req);
+
+    return await User.findOne({id: userId});
   }
 
 };

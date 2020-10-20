@@ -155,6 +155,12 @@ without necessarily having a billing card.`
       example: 1502844074211
     },
 
+    isOnline: {
+      type: 'boolean',
+      description: 'true if user is online',
+      defaultsTo: false
+    },
+
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
@@ -168,7 +174,7 @@ without necessarily having a billing card.`
   },
   customToJSON: function() {
     // Return a shallow copy of this record with the password and ssn removed.
-    return _.pick(this, ['id', 'fullName']);
+    return _.pick(this, ['id', 'createdAt', 'fullName', 'isOnline']);
   }
 
 };
