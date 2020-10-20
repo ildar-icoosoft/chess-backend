@@ -174,7 +174,7 @@ without necessarily having a billing card.`
   },
   customToJSON: function() {
     // Return a shallow copy of this record with the password and ssn removed.
-    return _.pick(this, ['id', 'fullName', 'isOnline']);
+    return _.pick(this, ['id', 'createdAt', 'fullName', 'isOnline']);
   }
 
 };
