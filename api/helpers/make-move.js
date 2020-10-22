@@ -68,7 +68,7 @@ module.exports = {
       // timePropName should contain time of previous move. So if current turnColor is white then timePropName will be "btime"
       const timePropName = turnColor === "white" ? "btime" : "wtime";
 
-      const updatedTime = game[timePropName] - (now - game.lastMoveAt);
+      const updatedTime = game[timePropName] - (now - game.lastMoveAt) + (game.clockIncrement * 1000);
 
       if (updatedTime < 0) {
         throw "outOfTime";
