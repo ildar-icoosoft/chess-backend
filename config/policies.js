@@ -30,4 +30,7 @@ module.exports.policies = {
   'challenge/ai': true, // @todo. I accept unauthorized request to this method, because I need to return custom 401 error message
   'board/create-seek': true, // @todo. I accept unauthorized request to this method, because I need to return custom 401 error message
   'board/accept-seek': true, // @todo. I accept unauthorized request to this method, because I need to return custom 401 error message
+
+  'board/create-chat-message': true, // @todo. I accept unauthorized request to this method, because I need to return custom 401 error message
+  'board/get-chat-messages': true,
 };

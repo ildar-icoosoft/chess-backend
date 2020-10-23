@@ -71,5 +71,8 @@ module.exports.routes = {
   'POST /api/v1/board/game/:gameId/draw/yes': {action: 'board/create-or-accept-draw-offer'},
   'POST /api/v1/board/game/:gameId/draw/no': {action: 'board/decline-draw-offer'},
 
+  'POST /api/v1/board/game/:gameId/chat': {action: 'board/create-chat-message'},
+  'GET /api/v1/board/game/:gameId/chat': {action: 'board/get-chat-messages'},
+
   'GET /api/v1/account/me': {action: 'account/me'},
 };
