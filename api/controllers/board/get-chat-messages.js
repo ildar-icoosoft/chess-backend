@@ -38,7 +38,7 @@ module.exports = {
 
     const chatMessages = await ChatMessage.find({
       game: gameId
-    }).populate('createdBy');
+    }).populate('createdBy').sort('createdAt ASC');
 
     // All done.
     return chatMessages;
