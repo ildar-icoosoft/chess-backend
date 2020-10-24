@@ -58,6 +58,12 @@ module.exports = {
     }).fetch();
     const chatMessage = await ChatMessage.findOne(notPopulatedChatMessage.id).populate('createdBy');
 
+    sails.sockets.blast('chat-message', {
+      verb: 'created',
+      data: chatMessage,
+      id: chatMessage.id
+    }, this.req);
+
     // All done.
     return chatMessage;
 
