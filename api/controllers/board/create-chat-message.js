@@ -52,7 +52,7 @@ module.exports = {
     }
 
     const notPopulatedChatMessage = await ChatMessage.create({
-      createdBy: this.req.me,
+      createdBy: this.req.me.id,
       text,
       game: game.id
     }).fetch();
