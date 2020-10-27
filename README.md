@@ -6,13 +6,19 @@ Chess Backend used by [Chess-PWA](https://github.com/ildar-icoosoft/chess-pwa)
 
 </h3>
 
+This backend is based on [Sails Framework](https://sailsjs.com/). So you can use any [sails's features](https://sailsjs.com/features) in this project.
+It provides RESTful API with several API methods.
+
+- Usage
+  - [Installation](#installation)
+  - [Start server](#startserver)
 - API methods
-  - Users
-    - [Login](#usecombinedrefs)
-    - [SignUp](#vdvfv)
-    - [Logout](#vdvfv)
-    - [Get users list](#getlist)
-    - [Get current user](#a)
+  - [Users](#users)
+    - [Login](#apiv1entrancelogin)
+    - [SignUp](#apiv1entrancesignup)
+    - [Logout](#apiv1accountlogout)
+    - [Get current user](#apiv1accountme)
+    - [Get users list](#apiv1user)
   - Games
     - [Get games list](#aa)
     - [Get single game](#aa)
@@ -24,6 +30,22 @@ Chess Backend used by [Chess-PWA](https://github.com/ildar-icoosoft/chess-pwa)
   - Challenges
     - [Challenge AI](#aa)
     - [Challenge AI](#aa)
+
+## Installation
+
+```bash
+git clone https://github.com/ildar-icoosoft/chess-backend.git
+cd chess-backend
+npm install
+```
+
+## Start server
+
+```bash
+sails start
+```
+
+## API reference (v1.0.0)
 
 ## Users
 
