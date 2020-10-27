@@ -7,7 +7,7 @@ Chess Backend used by [Chess-PWA](https://github.com/ildar-icoosoft/chess-pwa)
 </h3>
 
 This backend is based on [Sails Framework](https://sailsjs.com/). So you can use any [sails's features](https://sailsjs.com/features) in this project.
-It provides RESTful API with several [API methods](#api-reference-v100).
+It is a free online chess game server focused on realtime gameplay and ease of use.
 
 - Usage
   - [Installation](#installation)
