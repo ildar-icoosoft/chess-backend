@@ -11,7 +11,7 @@ It provides RESTful API with several [API methods](#api-reference-v100).
 
 - Usage
   - [Installation](#installation)
-  - [Start server](#startserver)
+  - [Start server](#start-server)
 - API methods
   - [Users](#users)
     - [Login](#apiv1entrancelogin)
@@ -19,17 +19,20 @@ It provides RESTful API with several [API methods](#api-reference-v100).
     - [Logout](#apiv1accountlogout)
     - [Get current user](#apiv1accountme)
     - [Get users list](#apiv1user)
-  - Games
-    - [Get games list](#aa)
-    - [Get single game](#aa)
-    - [Make move](#aa)
-    - [Abort a game](#aa)
-    - [Resign a game](#aa)
-    - [Create or accept draw offer](#aa)
-    - [Decline draw offer](#aa)
-  - Challenges
-    - [Challenge AI](#aa)
-    - [Challenge AI](#aa)
+  - [Games](#games)
+    - [Get games list](#apiv1game)
+    - [Get single game](#apiv1gamegameid)
+    - [Make a board move](#apiv1boardgamegameidmovemove)
+    - [Abort a game](#apiv1boardgamegameidabort)
+    - [Resign a game](#apiv1boardgamegameidresign)
+    - [Create or accept a draw offer](#apiv1boardgamegameiddrawyes)
+    - [Decline a draw offer](#apiv1boardgamegameiddrawno)
+  - [Challenges](#challenges)
+    - [Challenge AI](#apiv1challengeai)
+  - [Seeks](#seeks)
+    - [Get seeks list](#apiv1seek)
+    - [Create a seek](#apiv1boardseek)
+    - [Accept a seek](#apiv1boardseekseekidaccept)
 
 ## Usage
 
@@ -257,7 +260,7 @@ Resign a game
 #### POST
 ##### Summary
 
-Create or accept draw offer
+Create or accept a draw offer
 
 ##### Parameters
 
@@ -278,7 +281,7 @@ Create or accept draw offer
 #### POST
 ##### Summary
 
-Decline draw offer
+Decline a draw offer
 
 ##### Parameters
 
@@ -366,7 +369,7 @@ The response is streamed but doesn't contain any information.<br/>Keep the conne
 #### POST
 ##### Summary
 
-Accept seek
+Accept a seek
 
 ##### Parameters
 
