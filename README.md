@@ -53,6 +53,13 @@ npm install
 sails start
 ```
 
+`sails lift` takes the following options:
+
+- --prod - in production environment
+- --port <portNum> - on the port specified by portNum instead of the default (1337)
+- --verbose - with verbose logging enabled
+- --silly - with insane logging enabled
+
 ## API reference (v1.0.0)
 
 ## Users
