@@ -33,6 +33,9 @@ It provides RESTful API with several [API methods](#api-reference-v100).
     - [Get seeks list](#apiv1seek)
     - [Create a seek](#apiv1boardseek)
     - [Accept a seek](#apiv1boardseekseekidaccept)
+  - [Chat Messages](#chat-messages)
+    - [Get chat messages](#apiv1boardgamegameidchat)
+    - [Create a chat message](#post-10)
 
 ## Usage
 
@@ -410,7 +413,7 @@ Get chat messages
 #### POST
 ##### Summary
 
-Create chat message
+Create a chat message
 
 ##### Parameters
 
