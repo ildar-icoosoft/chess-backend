@@ -36,6 +36,16 @@ It is a free online chess game server focused on realtime gameplay and ease of u
   - [Chat Messages](#chat-messages)
     - [Get chat messages](#apiv1boardgamegameidchat)
     - [Create a chat message](#post-10)
+- Models
+  - [LoginInput](#logininput)
+  - [SignUpInput](#signupinput)
+  - [ChallengeAiInput](#challengeaiinput)
+  - [CreateSeekInput](#createseekinput)
+  - [CreateChatMessageInput](#createchatmessageinput)
+  - [User](#user)
+  - [Seek](#seek)
+  - [ChatMessage](#chatmessage)
+  - [Game](#game)
 
 ## Usage
 
