@@ -40,4 +40,6 @@ module.exports.blueprints = {
 
   autoWatch: true,
 
+  restPrefix: "/api/v1"
+
 };
