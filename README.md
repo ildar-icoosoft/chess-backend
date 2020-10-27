@@ -25,6 +25,8 @@ Chess Backend used by [Chess-PWA](https://github.com/ildar-icoosoft/chess-pwa)
     - [Challenge AI](#aa)
     - [Challenge AI](#aa)
 
+## Users
+
 ### /api/v1/entrance/login
 
 #### PUT
@@ -122,6 +124,8 @@ Get users list
 | ---- | ----------- | ------ |
 | 200 | successful operation | [ [User](#user) ] |
 
+## Games
+
 ### /api/v1/game
 
 #### GET
@@ -158,90 +162,6 @@ Get single game
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
 | 200 | successful operation | [Game](#game) |
-
-### /api/v1/challenge/ai
-
-#### POST
-##### Summary
-
-Start a game with AI
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| body | body | ChallengeInput object | Yes | [ChallengeAiInput](#challengeaiinput) |
-
-##### Responses
-
-| Code | Description | Schema |
-| ---- | ----------- | ------ |
-| 200 | successful operation | [Game](#game) |
-| 401 | User is not authenticated |  |
-
-### /api/v1/seek
-
-#### GET
-##### Summary
-
-Get seeks list
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-
-##### Responses
-
-| Code | Description | Schema |
-| ---- | ----------- | ------ |
-| 200 | successful operation | [ [Seek](#seek) ] |
-
-### /api/v1/board/seek
-
-#### POST
-##### Summary
-
-Create a public seek, to start a game with a random player
-
-##### Description
-
-The response is streamed but doesn't contain any information.<br/>Keep the connection open to keep the seek active.<br/>If the client closes the connection, the seek is canceled.<br/>If the seek is accepted, or expires, the server closes the connection.
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| body | body | ChallengeInput object | Yes | [CreateSeekInput](#createseekinput) |
-
-##### Responses
-
-| Code | Description | Schema |
-| ---- | ----------- | ------ |
-| 200 | successful operation | [Game](#game) |
-| 401 | User is not authenticated |  |
-| 404 | Seek not found. The connection may have been aborted by the client |  |
-
-### /api/v1/board/seek/{seekId}/accept
-
-#### POST
-##### Summary
-
-Accept seek
-
-##### Parameters
-
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| seekId | path | ID of seek to accept | Yes | integer |
-
-##### Responses
-
-| Code | Description | Schema |
-| ---- | ----------- | ------ |
-| 200 | successful operation | [Seek](#seek) |
-| 401 | User is not authenticated |  |
-| 404 | Seek not found |  |
 
 ### /api/v1/board/game/{gameId}/move/{move}
 
@@ -349,6 +269,96 @@ Decline draw offer
 | 200 | successful operation | [Game](#game) |
 | 401 | User is not authenticated |  |
 | 404 | Game not found |  |
+
+## Challenges
+
+### /api/v1/challenge/ai
+
+#### POST
+##### Summary
+
+Start a game with AI
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+| body | body | ChallengeInput object | Yes | [ChallengeAiInput](#challengeaiinput) |
+
+##### Responses
+
+| Code | Description | Schema |
+| ---- | ----------- | ------ |
+| 200 | successful operation | [Game](#game) |
+| 401 | User is not authenticated |  |
+
+## Seeks
+
+### /api/v1/seek
+
+#### GET
+##### Summary
+
+Get seeks list
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+
+##### Responses
+
+| Code | Description | Schema |
+| ---- | ----------- | ------ |
+| 200 | successful operation | [ [Seek](#seek) ] |
+
+### /api/v1/board/seek
+
+#### POST
+##### Summary
+
+Create a public seek, to start a game with a random player
+
+##### Description
+
+The response is streamed but doesn't contain any information.<br/>Keep the connection open to keep the seek active.<br/>If the client closes the connection, the seek is canceled.<br/>If the seek is accepted, or expires, the server closes the connection.
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+| body | body | ChallengeInput object | Yes | [CreateSeekInput](#createseekinput) |
+
+##### Responses
+
+| Code | Description | Schema |
+| ---- | ----------- | ------ |
+| 200 | successful operation | [Game](#game) |
+| 401 | User is not authenticated |  |
+| 404 | Seek not found. The connection may have been aborted by the client |  |
+
+### /api/v1/board/seek/{seekId}/accept
+
+#### POST
+##### Summary
+
+Accept seek
+
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+| seekId | path | ID of seek to accept | Yes | integer |
+
+##### Responses
+
+| Code | Description | Schema |
+| ---- | ----------- | ------ |
+| 200 | successful operation | [Seek](#seek) |
+| 401 | User is not authenticated |  |
+| 404 | Seek not found |  |
+
+## Chat messages
 
 ### /api/v1/board/game/{gameId}/chat
 
