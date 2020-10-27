@@ -12,7 +12,7 @@ It is a free online chess game server focused on realtime gameplay and ease of u
 - Usage
   - [Installation](#installation)
   - [Start server](#start-server)
-- API methods
+- API reference (v1.0.0)
   - [Users](#users)
     - [Login](#apiv1entrancelogin)
     - [SignUp](#apiv1entrancesignup)
