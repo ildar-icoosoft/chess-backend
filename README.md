@@ -31,7 +31,9 @@ It provides RESTful API with several API methods.
     - [Challenge AI](#aa)
     - [Challenge AI](#aa)
 
-## Installation
+## Usage
+
+### Installation
 
 ```bash
 git clone https://github.com/ildar-icoosoft/chess-backend.git
@@ -39,7 +41,7 @@ cd chess-backend
 npm install
 ```
 
-## Start server
+### Start server
 
 ```bash
 sails start
