@@ -50,7 +50,7 @@ npm install
 ### Start server
 
 ```bash
-sails start
+sails lift
 ```
 
 `sails lift` takes the following options:
