@@ -254,6 +254,7 @@ module.exports = {
     onlyAllowOrigins: [
       'http://zenproject.ru',
       'https://zenproject.ru',
+      'http://localhost:3000'
     ],
 
 
