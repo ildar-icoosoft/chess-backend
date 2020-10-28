@@ -149,7 +149,8 @@ module.exports = {
     ***************************************************************************/
     cors: {
       // allowOrigins: [
-      //   'https://example.com',
+      //   'http://zenproject.ru',
+      //   'https://zenproject.ru',
       // ]
     },
 
@@ -250,10 +251,10 @@ module.exports = {
     * > Be sure to use the right protocol!  ("http://" vs. "https://")         *
     *                                                                          *
     ***************************************************************************/
-    // onlyAllowOrigins: [
-    //   'https://example.com',
-    //   'https://staging.example.com',
-    // ],
+    onlyAllowOrigins: [
+      'http://zenproject.ru',
+      'https://zenproject.ru',
+    ],
 
 
     /***************************************************************************
@@ -340,7 +341,7 @@ module.exports = {
   * this, just try deploying without setting it and see if it works.)       *
   *                                                                         *
   ***************************************************************************/
-  // port: 80,
+  port: 80,
 
 
 
