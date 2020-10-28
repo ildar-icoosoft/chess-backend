@@ -148,10 +148,10 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     cors: {
-      allowOrigins: [
-        'http://zenproject.ru',
-        'https://zenproject.ru',
-      ]
+      // allowOrigins: [
+      //   'http://zenproject.ru',
+      //   'https://zenproject.ru',
+      // ]
     },
 
   },
@@ -375,7 +375,7 @@ module.exports = {
   *                                                                         *
   ***************************************************************************/
   custom: {
-    baseUrl: 'http://zenproject.ru:1337',
+    baseUrl: 'http://zenproject.ru',
     internalEmailAddress: 'support@example.com',
 
     // sendgridSecret: 'SG.fake.3e0Bn0qSQVnwb1E4qNPz9JZP5vLZYqjh7sn8S93oSHU',
