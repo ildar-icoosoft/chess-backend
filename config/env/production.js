@@ -148,10 +148,10 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     cors: {
-      // allowOrigins: [
-      //   'http://zenproject.ru',
-      //   'https://zenproject.ru',
-      // ]
+      allowOrigins: [
+        'http://zenproject.ru',
+        'https://zenproject.ru',
+      ]
     },
 
   },
