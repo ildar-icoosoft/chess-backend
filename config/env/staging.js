@@ -39,13 +39,13 @@ module.exports = Object.assign({}, PRODUCTION_CONFIG, {
 
   sockets: Object.assign({}, PRODUCTION_CONFIG.sockets, {
 
-    onlyAllowOrigins: [
-      'http://localhost:1337',
-      // 'https://example-staging.herokuapp.com',
-      // 'http://example-staging.herokuapp.com',
-      // 'https://staging.example.com',
-      // 'http://staging.example.com',
-    ],
+    // onlyAllowOrigins: [
+    //   'http://localhost:1337',
+    //   // 'https://example-staging.herokuapp.com',
+    //   // 'http://example-staging.herokuapp.com',
+    //   // 'https://staging.example.com',
+    //   // 'http://staging.example.com',
+    // ],
     //--------------------------------------------------------------------------
     // /\  Hard-code a staging-only override for allowed origins.
     // ||  (or set this array via JSON-encoded system env var)
