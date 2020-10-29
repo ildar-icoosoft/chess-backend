@@ -153,6 +153,7 @@ module.exports = {
       allowOrigins: [
         'http://zenproject.ru',
         'https://zenproject.ru',
+        'https://zenproject.ru:1337',
         'http://localhost:3000'
       ]
     },
