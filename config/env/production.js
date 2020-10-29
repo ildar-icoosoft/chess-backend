@@ -151,7 +151,7 @@ module.exports = {
     ***************************************************************************/
     cors: {
       // allowOrigins: [
-      //   'https://example.com'
+      //   'https://example.com',
       // ]
     },
 
@@ -225,7 +225,7 @@ module.exports = {
     cookie: {
       secure: true,
       sameSite: "none",
-      maxAge: 24 * 60 * 60 * 1000,  // 24 hours
+      maxAge: 30 * 24 * 60 * 60 * 1000,  // 30 days
     },
 
   },
