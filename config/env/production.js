@@ -155,7 +155,7 @@ module.exports = {
         'https://zenproject.ru',
         'https://zenproject.ru:1337',
         'http://localhost:3000',
-        'https://ildar-icoosoft.github.io/'
+        'https://ildar-icoosoft.github.io'
       ]
     },
 
