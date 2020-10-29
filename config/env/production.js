@@ -150,13 +150,9 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     cors: {
-      allowOrigins: [
-        'http://zenproject.ru',
-        'https://zenproject.ru',
-        'https://zenproject.ru:1337',
-        'http://localhost:3000',
-        'https://ildar-icoosoft.github.io'
-      ]
+      // allowOrigins: [
+      //   'https://example.com'
+      // ]
     },
 
   },
@@ -257,9 +253,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     onlyAllowOrigins: [
-      'http://zenproject.ru',
-      'https://zenproject.ru',
-      'http://localhost:3000'
+      'https://ildar-icoosoft.github.io'
     ],
 
 
