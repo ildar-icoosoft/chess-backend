@@ -254,7 +254,8 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     onlyAllowOrigins: [
-      'https://ildar-icoosoft.github.io'
+      'https://ildar-icoosoft.github.io',
+      'http://localhost:3000'
     ],
 
 
